@@ -7,7 +7,7 @@ Import-Module BurntToast
 $temp = "C:\Temp\DMARC\" + $F
 $fn = ($F | Select-String -Pattern '.*(?=.xml|.zip|.gz)').Matches[0].Value
 $fn = ($fn | Select-String -Pattern '.*(?=.xml|.zip|.gz)').Matches[0].Value
-$path = "C:\Users\Simon Thurston\Documents\DMARC\" + $fn + ".xml"
+$path = "" + $HOME + "\Documents\DMARC\" + $fn + ".xml"
 $domain = ($F | Select-String -Pattern '(?<=!)[\D\.]*(?=!)').Matches[0].Value
 $service = ($F | Select-String -Pattern '^.*?(?=!)').Matches[0].Value
 
