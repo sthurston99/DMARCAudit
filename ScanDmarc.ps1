@@ -4,14 +4,16 @@ Param(
 )
 
 Import-Module BurntToast
+Import-Module 7Zip4Powershell
 $temp = "C:\Temp\DMARC\" + $F
+$out = "" + $HOME + "\Documents\DMARC\"
 $fn = ($F | Select-String -Pattern '.*(?=.xml|.zip|.gz)').Matches[0].Value
 $fn = ($fn | Select-String -Pattern '.*(?=.xml|.zip|.gz)').Matches[0].Value
-$path = "" + $HOME + "\Documents\DMARC\" + $fn + ".xml"
+$path = "" + $out + $fn + ".xml"
 $domain = ($F | Select-String -Pattern '(?<=!)[\D\.]*(?=!)').Matches[0].Value
 $service = ($F | Select-String -Pattern '^.*?(?=!)').Matches[0].Value
 
-7z.exe x -o'C:\Users\Simon Thurston\Documents\DMARC\' $temp -aoa
+Expand-7Zip -ArchiveFileName $temp -TargetPath $out
 
 $fails = Select-String -path $path -pattern fail | % {$_.LineNumber}
 
