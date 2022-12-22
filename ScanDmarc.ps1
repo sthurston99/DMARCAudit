@@ -17,5 +17,5 @@ $fails = Select-String -path $path -pattern fail | % {$_.LineNumber}
 
 If ($fails -ne $null)
 {
-    New-BurntToastNotification -Text "DMARC Error for $domain","$service Detected a DMARC Failure on $domain on the following lines: $fails"
+    New-BTContentBuilder | Add-BTText "DMARC Error for $domain","$service Detected a DMARC Failure on $domain on the following lines: $fails" -PassThru | Show-BTNotification
 }
