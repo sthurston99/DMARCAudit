@@ -11,7 +11,7 @@ $path = "C:\Users\Simon Thurston\Documents\DMARC\" + $fn + ".xml"
 $domain = ($F | Select-String -Pattern '(?<=!)[\D\.]*(?=!)').Matches[0].Value
 $service = ($F | Select-String -Pattern '^.*?(?=!)').Matches[0].Value
 
-7z.exe x -o'C:\Users\Simon Thurston\Documents\DMARC\' $temp
+7z.exe x -o'C:\Users\Simon Thurston\Documents\DMARC\' $temp -aoa
 
 $fails = Select-String -path $path -pattern fail | % {$_.LineNumber}
 
