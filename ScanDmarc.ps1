@@ -15,7 +15,7 @@ $service = ($F | Select-String -Pattern '^.*?(?=!)').Matches[0].Value
 
 Expand-7Zip -ArchiveFileName $temp -TargetPath $out
 
-$fails = Select-String -path $path -pattern fail | % {$_.LineNumber}
+$fails = Select-String -path $path -pattern "(?<!soft)fail" | % {$_.LineNumber}
 
 If ($fails -ne $null)
 {
