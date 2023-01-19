@@ -21,10 +21,10 @@ If ($F -like "*.tar.gz*")
 }
 Expand-7Zip -ArchiveFileName $temp -TargetPath $out
 
-$fails = Select-String -path $path -pattern "(?<!soft)fail" | % {$_.LineNumber}
+$fails = (Select-String -path $path -pattern "(?<!soft)fail").count
 
-If ($fails -ne $null)
+If ($fails -gt 0)
 {
-    New-BTContentBuilder | Add-BTText "DMARC Error $ID for $domain","$service Detected a DMARC Failure on $domain on the following lines: $fails" -PassThru | Show-BTNotification
+    New-BTContentBuilder | Add-BTText "DMARC Error $ID for $domain","$service Detected $fails DMARC Failure(s) on $domain" -PassThru | Show-BTNotification
     Add-Content -Path "$out\log.txt" -Value "$ID: $service reporting $domain failed on lines $fails"
 }
