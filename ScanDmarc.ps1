@@ -26,4 +26,5 @@ $fails = Select-String -path $path -pattern "(?<!soft)fail" | % {$_.LineNumber}
 If ($fails -ne $null)
 {
     New-BTContentBuilder | Add-BTText "DMARC Error $ID for $domain","$service Detected a DMARC Failure on $domain on the following lines: $fails" -PassThru | Show-BTNotification
+    Add-Content -Path "$out\log.txt" -Value "$ID: $service reporting $domain failed on lines $fails"
 }
