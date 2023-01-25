@@ -21,7 +21,7 @@ $fails = (Select-String -path $path -pattern "(?<!soft)fail").count
 
 If ($fails -gt 0) {
     Add-Content -Path "$out\log.txt" -Value "$ID : $service reporting $domain failed $fails times"
-    If ($fails -gt 5) {
+    If ($fails -gt 10) {
         New-BTContentBuilder | Add-BTText "DMARC Error $ID for $domain","$service Detected $fails DMARC Failure(s) on $domain" -PassThru | Show-BTNotification
     }
 }
