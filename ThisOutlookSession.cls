@@ -37,5 +37,3 @@ ErrorHandler:
   MsgBox Err.Number & " - " & Err.Description
   Resume ProgramExit
 End Sub
-
-
