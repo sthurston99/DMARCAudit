@@ -24,4 +24,6 @@ If ($fails -gt 0) {
     If ($fails -gt 10) {
         New-BTContentBuilder | Add-BTText "DMARC Error $ID for $domain","$service Detected $fails DMARC Failure(s) on $domain" -PassThru | Show-BTNotification
     }
+} Else {
+    Add-Content -Path "$out\log.txt" -Value "$ID : $service reporting $domain has no issues"
 }
