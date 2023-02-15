@@ -26,7 +26,7 @@ Private Sub Items_ItemAdd(ByVal item As Object)
         If Msg.Attachments.Count > 0 Then
             For Each attch In Msg.Attachments
                 attch.SaveAsFile "C:\Temp\DMARC\" & attch.FileName
-                Call Shell("pwsh.exe -ExecutionPolicy ByPass -File ""C:\Users\Simon Thurston\Documents\Code\DMARCAudit\ScanDmarc.ps1"" -F " & attch.FileName, 0)
+                Call Shell("pwsh.exe -ExecutionPolicy ByPass -File ""C:\Users\" & Environ("username") & "\Documents\Code\DMARCAudit\ScanDmarc.ps1"" -F " & attch.FileName, 0)
             Next
         End If
     End If
