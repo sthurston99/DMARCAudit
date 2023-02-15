@@ -4,7 +4,6 @@ Param(
 )
 
 Import-Module BurntToast
-Import-Module 7Zip4Powershell
 $temp = "C:\Temp\DMARC\" + $F
 $out = "" + $HOME + "\Documents\DMARC\"
 $fn = ($F | Select-String -Pattern '.*(?=.xml|.zip|.gz)').Matches[0].Value
