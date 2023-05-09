@@ -9,8 +9,6 @@ $out = "" + $HOME + "\Documents\DMARC\"
 $fn = ($F | Select-String -Pattern '.*(?=.xml|.zip|.gz)').Matches[0].Value
 $fn = ($fn | Select-String -Pattern '.*(?=.xml|.zip|.gz)').Matches[0].Value
 $path = "" + $out + $fn + ".xml"
-$domain = ($F | Select-String -Pattern '(?<=!)[\D\.]*(?=!)').Matches[0].Value
-$service = ($F | Select-String -Pattern '^.*?(?=!)').Matches[0].Value
 $ID = ($F | Select-String -Pattern '(?<=!)\d+(?=!)').Matches[0].Value
 
 $param = @('x', "-o$out", "$temp")
@@ -20,6 +18,9 @@ $param = @('x', "-o$out", "$temp")
 $dkimfails = ($xml.feedback.record.auth_results.dkim.result | Where-Object {$_ -eq "fail"} | Measure-Object).count
 $spffails = ($xml.feedback.record.auth_results.spf.result | Where-Object {$_ -eq "fail"} | Measure-Object).count
 $fails = $dkimfails + $spffails
+
+$service = $xml.feedback.report_metadata.org_name
+$domain = $xml.feedback.policy_published.domain
 
 If ($fails -gt 0) {
     Add-Content -Path "$out\log.txt" -Value "$ID : $service reporting $domain failed $fails times"
