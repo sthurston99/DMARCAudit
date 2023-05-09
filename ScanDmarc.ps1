@@ -16,12 +16,12 @@ $ID = ($F | Select-String -Pattern '(?<=!)\d+(?=!)').Matches[0].Value
 $param = @('x', "-o$out", "$temp")
 7z @param
 
-$fails = (Select-String -path $path -pattern "(?<!soft)fail").count
+$fails = (Select-String -Path $path -Pattern "(?<!soft)fail").count
 
 If ($fails -gt 0) {
     Add-Content -Path "$out\log.txt" -Value "$ID : $service reporting $domain failed $fails times"
-    If ($fails -gt 10) {
-        New-BTContentBuilder | Add-BTText "DMARC Error $ID for $domain","$service Detected $fails DMARC Failure(s) on $domain" -PassThru | Show-BTNotification
+    If ($fails -gt 25) {
+        New-BTContentBuilder | Add-BTText "DMARC Error $ID for $domain", "$service Detected $fails DMARC Failure(s) on $domain" -PassThru | Show-BTNotification
     }
 } Else {
     Add-Content -Path "$out\log.txt" -Value "$ID : $service reporting $domain has no issues"
