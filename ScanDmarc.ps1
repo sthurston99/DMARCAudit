@@ -1,6 +1,6 @@
 Param(
-    [Parameter(Mandatory)]
-    [string]$F
+	[Parameter(Mandatory)]
+	[string]$F
 )
 
 Import-Module BurntToast
@@ -23,10 +23,10 @@ $service = $xml.feedback.report_metadata.org_name
 $domain = $xml.feedback.policy_published.domain
 
 If ($fails -gt 0) {
-    Add-Content -Path "$out\log.txt" -Value "$ID : $service reporting $domain failed $fails times"
-    If ($fails -gt $Env:FailThresh) {
-        New-BTContentBuilder | Add-BTText "DMARC Error $ID for $domain", "$service Detected $fails DMARC Failure(s) on $domain" -PassThru | Show-BTNotification
-    }
+	Add-Content -Path "$out\log.txt" -Value "$ID : $service reporting $domain failed $fails times"
+	If ($fails -gt $Env:FailThresh) {
+		New-BTContentBuilder | Add-BTText "DMARC Error $ID for $domain", "$service Detected $fails DMARC Failure(s) on $domain" -PassThru | Show-BTNotification
+	}
 } Else {
-    Add-Content -Path "$out\log.txt" -Value "$ID : $service reporting $domain has no issues"
+	Add-Content -Path "$out\log.txt" -Value "$ID : $service reporting $domain has no issues"
 }
